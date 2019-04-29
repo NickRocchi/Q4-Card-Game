@@ -12,7 +12,7 @@ public class Deck {
 	 * cards contains all the cards in the deck.
 	 */
 	private ArrayList<Card> cards;
-	private List<Card> cards2;
+	private ArrayList<Card> cards2;
 
 	/**
 	 * size is the number of not-yet-dealt cards.
@@ -32,6 +32,7 @@ public class Deck {
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		cards = new ArrayList<Card>();
+		cards2 = new ArrayList<Card>();
 		for (int j = 0; j < ranks.length; j++) {
 			for (String suitString : suits) {
 				cards.add(new Card(ranks[j], suitString, values[j]));
@@ -97,7 +98,9 @@ public class Deck {
             if (isEmpty()){
                 return null;
             }
-            cards2 = cards.subList(0, cards.size()/2);
+            for(int i = 0; i < size; i += 2){
+                cards2.add(cards.get(i));
+            }
             return cards2;
             }
 

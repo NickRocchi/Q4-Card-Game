@@ -98,11 +98,13 @@ public class Deck {
             if (isEmpty()){
                 return null;
             }
-            for(int i = 0; i < size; i += 2){
+            for(int i = 0; i < size/2; i++){
                 cards2.add(cards.get(i));
+                cards.remove(i);
             }
+            size = cards.size();
             return cards2;
-            }
+    }
 
 	
 	/**
@@ -125,9 +127,9 @@ public class Deck {
 		}
 
 		rtn = rtn + "\nDeck for player 2: \n";
-		for (int k = cards2.size() - 1; k >= size; k--) {
+		for (int k = cards2.size() - 1; k >= cards2.size(); k--) {
 			rtn = rtn + cards2.get(k);
-			if (k != size) {
+			if (k != cards2.size()) {
 				rtn = rtn + ", ";
 			}
 			if ((k - cards2.size()) % 2 == 0) {

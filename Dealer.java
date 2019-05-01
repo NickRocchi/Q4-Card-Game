@@ -23,7 +23,7 @@ public class Dealer {
 		System.out.println();
 
 		System.out.println("**** Split the Deck ****");
-		System.out.println("  deal: " + d.split());
+		System.out.println("  split: " + d.split());
 		System.out.println("  toString:\n" + d.toString());
 		System.out.println("  isEmpty: " + d.isEmpty());
 		System.out.println();

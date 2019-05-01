@@ -13,13 +13,14 @@ public class Deck {
 	 */
 	private ArrayList<Card> cards;
 	private ArrayList<Card> cards2;
+	private ArrayList<Card> inPlay;
 
 	/**
 	 * size is the number of not-yet-dealt cards.
 	 * Cards are dealt from the top (highest index) down.
 	 * The next card to be dealt is at size - 1.
 	 */
-	private int size;
+	private int size, size2;
 
 
 	/**
@@ -33,12 +34,14 @@ public class Deck {
 	public Deck(String[] ranks, String[] suits, int[] values) {
 		cards = new ArrayList<Card>();
 		cards2 = new ArrayList<Card>();
+		inPlay = new ArrayList<Card>();
 		for (int j = 0; j < ranks.length; j++) {
 			for (String suitString : suits) {
 				cards.add(new Card(ranks[j], suitString, values[j]));
 			}
 		}
 		size = cards.size();
+		size2 = cards2.size();
 		shuffle();
 	}
 
@@ -103,10 +106,34 @@ public class Deck {
                 cards.remove(i);
             }
             size = cards.size();
+            size2 = cards2.size();
             return cards2;
-    }
+        }
 
+	public ArrayList<Card> putInPlay(){
+	    inPlay.add(cards.get(0));
+	    inPlay.add(cards2.get(0));
+	    cards.remove(0);
+	    cards2.remove(0);
+	    size = cards.size();
+	    size2 = cards2.size();
+	    return inPlay;
+	}
 	
+	public i getPntVal(){
+	    return inPlay.pointValue();
+        }
+	
+	/*public boolean play(){
+	    boolean playerWin;
+	    if (inPlay.indexOf(0).pointValue() < inPlay.indexOf(1).pointValue()){
+	    playerWin = true;
+	   } else {
+	    playerWin = false;
+	   }
+	   return playerWin;
+	}*/
+        
 	/**
 	 * Generates and returns a string representation of this deck.
 	 * @return a string representation of this deck.
@@ -127,7 +154,7 @@ public class Deck {
 		}
 
 		rtn = rtn + "\nDeck for player 2: \n";
-		for (int k = cards2.size() - 1; k >= cards2.size(); k--) {
+		for (int k = cards2.size() - 1; k >= 0; k--) {
 			rtn = rtn + cards2.get(k);
 			if (k != cards2.size()) {
 				rtn = rtn + ", ";

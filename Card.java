@@ -55,7 +55,7 @@ public class Card {
 		return rank;
 	}
 
-   /**
+       /**
 	 * Accesses this <code>Card's</code> point value.
 	 * @return this <code>Card's</code> point value.
 	 */

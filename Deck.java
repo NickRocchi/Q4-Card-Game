@@ -14,6 +14,7 @@ public class Deck {
 	private ArrayList<Card> cards;
 	private ArrayList<Card> cards2;
 	private ArrayList<Card> inPlay;
+	boolean win;
 
 	/**
 	 * size is the number of not-yet-dealt cards.
@@ -111,28 +112,49 @@ public class Deck {
         }
 
 	public ArrayList<Card> putInPlay(){
-	    inPlay.add(cards.get(0));
-	    inPlay.add(cards2.get(0));
-	    cards.remove(0);
-	    cards2.remove(0);
-	    size = cards.size();
-	    size2 = cards2.size();
-	    return inPlay;
+	    if(size >= 0 && size2 >= 0){
+	       inPlay.add(cards.get(0));
+	       inPlay.add(cards2.get(0));
+	       cards.remove(0);
+	       cards2.remove(0);
+	       size = cards.size();
+	       size2 = cards2.size();
+	   }
+	   return inPlay;
 	}
 	
-	public i getPntVal(){
-	    return inPlay.pointValue();
-        }
-	
-	/*public boolean play(){
-	    boolean playerWin;
-	    if (inPlay.indexOf(0).pointValue() < inPlay.indexOf(1).pointValue()){
-	    playerWin = true;
+	public String play(){
+	   String winner = "";
+	    if (inPlay.get(0).pointValue() < inPlay.get(1).pointValue()){
+	    winner = "PLAYER'S HAND";
+	    win = true;
 	   } else {
-	    playerWin = false;
+	    winner = "CPU'S HAND";
+	    win = false;
 	   }
-	   return playerWin;
-	}*/
+	   return winner;
+	}
+	
+	public ArrayList<Card> playerHand(){
+	    if (win = true){
+	        cards.add(0, inPlay.get(0));
+	        cards.add(0, inPlay.get(1));
+	        inPlay.remove(0);
+	    }
+	    size = cards.size();
+	    return cards;
+	}
+	
+	public ArrayList<Card> cpuHand(){
+	    if (win = false){
+	        cards2.add(0, inPlay.get(0));
+	        cards2.add(0, inPlay.get(1));
+	        inPlay.remove(1);
+	        inPlay.remove(0);
+	    }
+	    size2 = cards2.size();
+	    return cards2;
+	}
         
 	/**
 	 * Generates and returns a string representation of this deck.

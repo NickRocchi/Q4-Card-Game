@@ -28,5 +28,13 @@ public class Dealer {
 		System.out.println("  isEmpty: " + d.isEmpty());
 		System.out.println();
 		System.out.println();
+		
+		while(true){
+		    System.out.println("new round: \n " + d.putInPlay());
+		    System.out.println("\n \n Now FIGHT: " + d.play());
+		    System.out.println("your new hands! \n" + "Player! \n" + d.playerHand() + "\n and computer! \n" + d.cpuHand());
+		    System.out.println();
+		    System.out.println();
+		}
 	}
 }

@@ -14,14 +14,14 @@ public class Deck {
 	private ArrayList<Card> cards;
 	private ArrayList<Card> cards2;
 	private ArrayList<Card> inPlay;
-	boolean win;
+	boolean win, gameOver;
 
 	/**
 	 * size is the number of not-yet-dealt cards.
 	 * Cards are dealt from the top (highest index) down.
 	 * The next card to be dealt is at size - 1.
 	 */
-	private int size, size2;
+	private int size, size2, sizeP, p1Points, p2Points;
 
 
 	/**
@@ -43,6 +43,7 @@ public class Deck {
 		}
 		size = cards.size();
 		size2 = cards2.size();
+		sizeP = inPlay.size();
 		shuffle();
 	}
 
@@ -61,6 +62,10 @@ public class Deck {
 	 */
 	public int size() {
 		return size;
+	}
+	
+	public int size2() {
+	    return size2;
 	}
 
 	/**
@@ -110,49 +115,65 @@ public class Deck {
             size2 = cards2.size();
             return cards2;
         }
+        
+        
+        public void winCondition(){
+            if (size > 0 && size2 > 0){
+                gameOver = false;
+            }
+            else gameOver = true;
+        }
 
 	public ArrayList<Card> putInPlay(){
-	    if(size >= 0 && size2 >= 0){
-	       inPlay.add(cards.get(0));
-	       inPlay.add(cards2.get(0));
+	    if(gameOver == false){
+	       inPlay.add(cards.get((size-size)));
+	       inPlay.add(cards2.get((size2 - size2)));
 	       cards.remove(0);
 	       cards2.remove(0);
 	       size = cards.size();
 	       size2 = cards2.size();
-	   }
-	   return inPlay;
+	       gameOver = false;
+	    }
+	    else{ gameOver = true;}
+	    return inPlay;
 	}
 	
 	public String play(){
 	   String winner = "";
-	    if (inPlay.get(0).pointValue() < inPlay.get(1).pointValue()){
-	    winner = "PLAYER'S HAND";
-	    win = true;
-	   } else {
-	    winner = "CPU'S HAND";
-	    win = false;
+	   if(gameOver == false){
+	        if (inPlay.get(sizeP - sizeP).pointValue() < inPlay.get(sizeP - (sizeP - 1)).pointValue()){
+	        winner = "PLAYER'S HAND";
+	        win = true;
+	       } else {
+	        winner = "CPU'S HAND";
+	        win = false;
+	       }
+	   }
+	   else{
+	       System.out.println("GAME OVER");
 	   }
 	   return winner;
 	}
 	
 	public ArrayList<Card> playerHand(){
-	    if (win = true){
-	        cards.add(0, inPlay.get(0));
-	        cards.add(0, inPlay.get(1));
-	        inPlay.remove(0);
+ 	    if (win == true){
+	        cards.add(inPlay.get(sizeP - sizeP));
+	        cards.add(inPlay.get(sizeP - (sizeP - 1)));
+	        inPlay.removeAll(inPlay);
 	    }
+	    size2 = cards.size();
 	    size = cards.size();
 	    return cards;
 	}
 	
 	public ArrayList<Card> cpuHand(){
-	    if (win = false){
-	        cards2.add(0, inPlay.get(0));
-	        cards2.add(0, inPlay.get(1));
-	        inPlay.remove(1);
-	        inPlay.remove(0);
+	    if (win != true){
+	        cards2.add(inPlay.get(sizeP - sizeP));
+	        cards2.add(inPlay.get(sizeP - (sizeP - 1)));
+	        inPlay.removeAll(inPlay);
 	    }
 	    size2 = cards2.size();
+	    size = cards.size();
 	    return cards2;
 	}
         

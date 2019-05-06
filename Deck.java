@@ -19,8 +19,7 @@ public class Deck {
 	/**
 	 * size is the number of not-yet-dealt cards.
 	 * Cards are dealt from the top (highest index) down.
-	 * The next card to be dealt is at size - 1.
-	 */
+	 * The next card to be dealt is at size - 1. 	 */
 	private int size, size2, sizeP, p1Points, p2Points;
 
 
@@ -73,15 +72,25 @@ public class Deck {
 	 * and reset the size to represent the entire deck.
 	 */
 	public void shuffle() {
-		for (int k = cards.size() - 1; k > 0; k--) {
-			int howMany = k + 1;
+		for (int k = size - 1; k > 0; k--) {
+			int howMany = size;
 			int start = 0;
 			int randPos = (int) (Math.random() * howMany) + start;
 			Card temp = cards.get(k);
 			cards.set(k, cards.get(randPos));
 			cards.set(randPos, temp);
 		}
-		size = cards.size();
+	}
+	
+	public void shuffle2() {
+		for (int k = size2 - 1; k > 0; k--) {
+			int howMany = size2;
+			int start = 0;
+			int randPos = (int) (Math.random() * howMany) + start;
+			Card temp = cards2.get(k);
+			cards2.set(k, cards2.get(randPos));
+			cards2.set(randPos, temp);
+		}
 	}
 
 	/**
@@ -156,24 +165,28 @@ public class Deck {
 	}
 	
 	public ArrayList<Card> playerHand(){
- 	    if (win == true){
-	        cards.add(inPlay.get(sizeP - sizeP));
-	        cards.add(inPlay.get(sizeP - (sizeP - 1)));
-	        inPlay.removeAll(inPlay);
+	    if(gameOver == false){
+ 	        if (win == true){
+	            cards.add(inPlay.get(sizeP - sizeP));
+	            cards.add(inPlay.get(sizeP - (sizeP - 1)));
+	            inPlay.removeAll(inPlay);
+	        }
+	        size2 = cards.size();
+	        size = cards.size();
 	    }
-	    size2 = cards.size();
-	    size = cards.size();
 	    return cards;
 	}
 	
 	public ArrayList<Card> cpuHand(){
-	    if (win != true){
-	        cards2.add(inPlay.get(sizeP - sizeP));
-	        cards2.add(inPlay.get(sizeP - (sizeP - 1)));
-	        inPlay.removeAll(inPlay);
+	    if (gameOver == false){
+	        if (win != true){
+	            cards2.add(inPlay.get(sizeP - sizeP));
+	            cards2.add(inPlay.get(sizeP - (sizeP - 1)));
+	            inPlay.removeAll(inPlay);
+	        }
+	        size2 = cards2.size();
+	        size = cards.size();
 	    }
-	    size2 = cards2.size();
-	    size = cards.size();
 	    return cards2;
 	}
         

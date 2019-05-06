@@ -34,7 +34,9 @@ public class Dealer {
         d.winCondition();
             while (d.gameOver == false){
             d.winCondition();
-            System.out.println("two sizes: \n size of your deck:" + size() +
+            d.shuffle();
+            d.shuffle2();
+            System.out.println("two sizes: \n size of your deck:" + d.size() + "\n and the CPU's deck: " + d.size2());
             System.out.println("new round: \n " + d.putInPlay());
             System.out.println("\n \n Now FIGHT: " + d.play());
             System.out.println("your new hands! \n" + "Player! \n" + d.playerHand() + "\n and computer! \n" + d.cpuHand());
